@@ -34,6 +34,14 @@ NetworkIterator.prototype.toArray = function() {
 	return result;
 };
 
+NetworkIterator.prototype.toString = function() {
+	return JSON.stringify({
+		current: Network.prototype.ipIntegerToString(this._current),
+		start: Network.prototype.ipIntegerToString(this._start),
+		end: Network.prototype.ipIntegerToString(this._end)
+	});
+};
+
 /***** CONSTRUCTOR *****/
 
 function Network(ipString, submaskString) {
