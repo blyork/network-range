@@ -6,7 +6,7 @@
 		"Benjamin York <benjaminyork@gmail.com>"
 	],
 	"description": "Javascript object that parses subnets and allows you to make queries on the data.",
-	"main": "Network.js",
+	"main": "production/Network.min.js",
 	"moduleType": [
 		"amd",
 		"es6",
