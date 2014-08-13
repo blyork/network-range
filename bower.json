@@ -1,0 +1,33 @@
+{
+	"name": "network-range",
+	"version": "0.1.0",
+	"homepage": "https://github.com/blyork/network-range",
+	"authors": [
+		"Benjamin York <benjaminyork@gmail.com>"
+	],
+	"description": "Javascript object that parses subnets and allows you to make queries on the data.",
+	"main": "Network.js",
+	"moduleType": [
+		"amd",
+		"es6",
+		"globals",
+		"node"
+	],
+	"keywords": [
+		"IP",
+		"IPv4",
+		"range",
+		"network"
+	],
+	"license": "MIT",
+	"ignore": [
+		"**/.*",
+		"*.log",
+		"*.orig",
+		"bower_components",
+		"node_modules",
+		"package.json",
+		"scripts",
+		"test"
+	]
+}

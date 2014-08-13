@@ -4,6 +4,7 @@
 	"description": "Javascript object that parses subnets and allows you to make queries on the data.",
 	"main": "Network.js",
 	"scripts": {
+		"prepublish": "scripts/pre-commit",
 		"test": "env NODE_ENV=test node_modules/.bin/mocha"
 	},
 	"repository": {
@@ -21,7 +22,9 @@
 	"devDependencies": {
 		"chai": "~1.9.1",
 		"js-beautify": "~1.5.1",
-		"mocha": "~1.21.4"
+		"mocha": "~1.21.4",
+		"requirejs": "~2.1.14",
+		"uglify-js": "~2.4.15"
 	},
 	"bugs": {
 		"url": "https://github.com/blyork/network-range/issues"
