@@ -4,7 +4,6 @@
 	"description": "Javascript object that parses subnets and allows you to make queries on the data.",
 	"main": "production/Network.min.js",
 	"scripts": {
-		"prepublish": "scripts/pre-commit",
 		"test": "env NODE_ENV=test node_modules/.bin/mocha"
 	},
 	"repository": {

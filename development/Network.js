@@ -178,6 +178,12 @@
 		return Network.prototype.ipIntegerToString(result);
 	};
 
+	Network.prototype.getHexOctets = function(hexString) {
+		return hexString.split(':').map(function(octet) {
+			return parseInt(octet, 16);
+		});
+	};
+
 	Network.prototype.getOctets = function(ipString) {
 		return ipString.split('.').map(function(octet) {
 			return parseInt(octet, 10);
@@ -304,7 +310,28 @@
 		return result;
 	};
 
+	Network.prototype.submaskToBitmask = function(submask) {
+		var bitmask, index, bit;
+
+		if ((typeof submask) === 'string') {
+			submask = Network.prototype.ipStringToInteger(submask);
+
+		}
+		bitmask = 0;
+		for (index = 32, bit = 1; index >= 0, bit === 1; index -= 1) {
+			bitmask += (bit = Network.prototype.bitAt(submask, index));
+		}
+
+		return bitmask;
+	};
+
 	/***** METHODS *****/
+
+	Network.prototype._calculateBitmask = function() {
+		if (!this._bitmask) {
+			this._bitmask = Network.prototype.submaskToBitmask(this._submask);
+		}
+	};
 
 	Network.prototype._calculateBroadcast = function() {
 		if (!this._broadcast) {
@@ -359,7 +386,10 @@
 
 		if (start) {
 
-			if (this.isIp(start)) {
+			if (start instanceof Network) {
+				result = this._containsRange(start.getStart(), start.getEnd());
+
+			} else if (this.isIp(start)) {
 				if (end) {
 					result = this._containsRange(start, end)
 
@@ -375,6 +405,8 @@
 				range = this.parseLongRange(start);
 				result = this._containsRange(range.start, range.end);
 
+			} else if (this.isCidr(start)) {
+				result = this.contains(new Network(start));
 			}
 
 			return result;
@@ -382,6 +414,8 @@
 	};
 
 	Network.prototype.createIterator = function(start, end) {
+		this._calculateStart();
+		this._calculateEnd();
 		start = start || Network.prototype.ipIntegerToString(this._start);
 		end = end || Network.prototype.ipIntegerToString(this._end);
 
@@ -394,6 +428,11 @@
 		}
 
 		return new NetworkIterator(start, end);
+	};
+
+	Network.prototype.getBitmask = function() {
+		this._calculateBitmask();
+		return this._bitmask;
 	};
 
 	Network.prototype.getBroadcast = function() {
@@ -435,6 +474,10 @@
 			start: this.getStart(),
 			end: this.getEnd()
 		}
+	};
+
+	Network.prototype.toCidr = function() {
+		return this.getNetwork() + '/' + this.getBitmask();
 	};
 
 	Network.prototype.toString = function() {
