@@ -20,17 +20,23 @@ describe('Network', function() {
 
 		describe('#bitmaskToSubmask', function() {
 			it('should return string submask base on number bitmask', function() {
-				expect(Network.prototype.bitmaskToSubmask(24)).to.equal('255.255.255.0');
-				expect(Network.prototype.bitmaskToSubmask(16)).to.equal('255.255.0.0');
-				expect(Network.prototype.bitmaskToSubmask(8)).to.equal('255.0.0.0');
 				expect(Network.prototype.bitmaskToSubmask(31)).to.equal('255.255.255.254');
 				expect(Network.prototype.bitmaskToSubmask(5)).to.equal('248.0.0.0');
 				expect(Network.prototype.bitmaskToSubmask(2)).to.equal('192.0.0.0');
 				expect(Network.prototype.bitmaskToSubmask(22)).to.equal('255.255.252.0');
 				expect(Network.prototype.bitmaskToSubmask(15)).to.equal('255.254.0.0');
 				expect(Network.prototype.bitmaskToSubmask(30)).to.equal('255.255.255.252');
-				expect(Network.prototype.bitmaskToSubmask(8)).to.equal('255.0.0.0');
 				expect(Network.prototype.bitmaskToSubmask(18)).to.equal('255.255.192.0');
+
+				expect(Network.prototype.bitmaskToSubmask(8)).to.equal('255.0.0.0');
+				expect(Network.prototype.bitmaskToSubmask(7)).to.equal('254.0.0.0');
+				expect(Network.prototype.bitmaskToSubmask(10)).to.equal('255.192.0.0');
+				expect(Network.prototype.bitmaskToSubmask(16)).to.equal('255.255.0.0');
+				expect(Network.prototype.bitmaskToSubmask(18)).to.equal('255.255.192.0');
+				expect(Network.prototype.bitmaskToSubmask(20)).to.equal('255.255.240.0');
+				expect(Network.prototype.bitmaskToSubmask(24)).to.equal('255.255.255.0');
+				expect(Network.prototype.bitmaskToSubmask(29)).to.equal('255.255.255.248');
+				expect(Network.prototype.bitmaskToSubmask(31)).to.equal('255.255.255.254');
 			});
 		});
 
@@ -69,7 +75,17 @@ describe('Network', function() {
 
 		describe('#isCidr', function() {
 			it('should ', function() {
+				expect(Network.prototype.isCidr('192.168.1.0/24')).to.be.true;
+				expect(Network.prototype.isCidr('32.11.1.5/16')).to.be.true;
+				expect(Network.prototype.isCidr('192.168.1.0/31')).to.be.true;
+				expect(Network.prototype.isCidr('192.168.1.0/9')).to.be.true;
+				expect(Network.prototype.isCidr('192.168.1.0/2')).to.be.true;
 
+				expect(Network.prototype.isCidr('999.168.1.0/24')).to.be.false;
+				expect(Network.prototype.isCidr('99.32.1.5/55')).to.be.false;
+				expect(Network.prototype.isCidr('32.168.1')).to.be.false;
+				expect(Network.prototype.isCidr('32.165.5.10-32.165.7.32')).to.be.false;
+				expect(Network.prototype.isCidr('127.5.4.6-11')).to.be.false;
 			});
 		});
 
