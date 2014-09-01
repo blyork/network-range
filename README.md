@@ -31,12 +31,10 @@ console.log(network.serialize());
 In your code, you can attach network-range's methods to any object.
 
 ```html
-<script>
-var exports = Bocoup.utils;
-</script>
 <script src="dist/network-range.min.js"></script>
-<script>
-Bocoup.utils.awesome(); // "awesome"
+<script type="text/javascript">
+    var network = new NetworkRange('192.168.1.0/24');
+    console.log(network.serialize());
 </script>
 ```
 
