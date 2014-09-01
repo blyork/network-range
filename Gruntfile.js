@@ -23,7 +23,7 @@ module.exports = function(grunt) {
                 updateConfigs: [],
                 commit: true,
                 commitMessage: 'Release v%VERSION%',
-                commitFiles: ['bower.json', 'package.json'],
+                commitFiles: ['-a'],
                 createTag: true,
                 tagName: 'v%VERSION%',
                 tagMessage: 'Version %VERSION%',
@@ -114,10 +114,18 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-jsbeautifier');
     grunt.loadNpmTasks('grunt-mocha-test');
 
+    // Custom tasks
+    grunt.registerTask('reloadVersion', function() {
+        grunt.config.set('pkg.version', grunt.file.readJSON('package.json').version);
+    });
+
+    // Multi tasks.
+    grunt.registerTask('format', ['jsbeautifier']);
+    grunt.registerTask('majorBump', ['jsbeautifier', 'jshint', 'bump-only:major', 'reloadVersion', 'uglify', 'bump-commit']);
+    grunt.registerTask('minify', ['jsbeautifier']);
+    grunt.registerTask('minorBump', ['jsbeautifier', 'jshint', 'bump-only:minor', 'reloadVersion', 'uglify', 'bump-commit']);
+    grunt.registerTask('patchBump', ['jsbeautifier', 'jshint', 'bump-only:patch', 'reloadVersion', 'uglify', 'bump-commit']);
+
     // Default task.
     grunt.registerTask('default', ['jsbeautifier', 'jshint', 'mochaTest', 'uglify']);
-
-    // Alias tasks.
-    grunt.registerTask('format', ['jsbeautifier']);
-    grunt.registerTask('minify', ['jsbeautifier']);
 };
