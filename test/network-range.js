@@ -14,18 +14,7 @@ describe('Network', function() {
     expect = require('chai').expect;
     Network = require('../lib/network-range');
 
-    describe('static functions', function() {
-        describe('#bitAt', function() {
-            it('should return bit at position (right to left) in number', function() {
-                var index, binary, num;
-                for (index; index < 100; index += 1) {
-                    binary = Math.floor(Math.random() * 4294967295);
-                    num = Math.floor(Math.random() * 32);
-                    expect(Network.prototype.bitAt(binary, num)).to.equal(binary.toString(2)[33 - num]);
-                }
-            });
-        });
-
+    describe('class methods', function() {
         describe('#bitmaskToSubmask', function() {
             it('should return string submask base on number bitmask', function() {
                 expect(Network.prototype.bitmaskToSubmask(31)).to.equal('255.255.255.254');
@@ -66,18 +55,6 @@ describe('Network', function() {
                     ];
                     expect(Network.prototype.getOctets(output.join('.'))).to.deep.equal(output);
                 }
-            });
-        });
-
-        describe('#ipIntegerToString', function() {
-            it('should ', function() {
-
-            });
-        });
-
-        describe('#ipStringToInteger', function() {
-            it('should ', function() {
-
             });
         });
 
@@ -140,7 +117,7 @@ describe('Network', function() {
         });
     });
 
-    describe('instance functions', function() {
+    describe('instance methods', function() {
         describe('#contains', function() {
             it('should ', function() {
 
