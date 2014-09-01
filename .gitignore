@@ -1,5 +1,4 @@
 **/.*
 *.log
 *.orig
-bower_components
 node_modules

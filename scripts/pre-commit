@@ -1,21 +1,4 @@
 #!/bin/sh
 
-FILES=`find . \( \
-  -path ./node_modules -o \
-  -path ./production \
-\) -prune -o \( -iname '*.js' -o -iname "*.json" \) -print`
-
-./node_modules/.bin/js-beautify -tr $FILES 1> /dev/null
-
-mkdir -p production
-node_modules/.bin/uglifyjs development/Network.js -o production/Network.min.js --no-dead-code
-
-diff=`git diff --shortstat 2> /dev/null | tail -n1`;
-
-if [ "$diff" != "" ]; then
-  echo "Some files were beautified. Check git status."
-  exit 1
-
-else
-  exit 0
-fi
+grunt
+git add .

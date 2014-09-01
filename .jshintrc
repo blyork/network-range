@@ -1,0 +1,22 @@
+{
+    "camelcase": true,
+    "curly": true,
+    "eqnull": true,
+    "eqeqeq": true,
+    "forin": true,
+    "freeze": true,
+    "immed": true,
+    "latedef": true,
+    "newcap": true,
+    "noarg": true,
+    "node": true,
+    "noempty": true,
+    "nonbsp": true,
+    "nonew": true,
+    "predef": ["define", "module", "exports"],
+    "quotmark": "single",
+    "strict": true,
+    "sub": true,
+    "undef": true,
+    "unused": true
+}
